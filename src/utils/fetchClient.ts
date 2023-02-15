@@ -1,4 +1,5 @@
 const BASE_URL = 'https://main--silver-kleicha-fba498.netlify.app/.netlify/functions/server';
+// const BASE_URL = 'http://localhost:9000/.netlify/functions/server';
 
 // a promise resolved after a given delay
 function wait(delay: number) {
@@ -27,7 +28,7 @@ function request<T>(
   }
 
   // we wait for testing purpose to see loaders
-  return wait(300)
+  return wait(0)
     .then(() => fetch(BASE_URL + url, options))
     .then(response => {
       if (!response.ok) {

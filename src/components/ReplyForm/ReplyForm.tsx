@@ -77,12 +77,15 @@ export const ReplyForm: FC<Props> = ({
       + currText.substring(cursorEnd));
   };
 
+  const KID = process.env.REACT_APP_S_ID || '';
+  const AK = process.env.REACT_APP_S_KEY || '';
+
   const uploadFile = async (fileToUpload: File) => {
     const s3 = new ReactS3Client({
       bucketName: 'comments-spa',
       region: 'eu-central-1',
-      accessKeyId: 'AKIA4BZAIOBKTRHFRLCP',
-      secretAccessKey: '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',
+      accessKeyId: KID,
+      secretAccessKey: AK,
     });
 
     try {
@@ -267,7 +270,7 @@ export const ReplyForm: FC<Props> = ({
                 className="nav-link active"
                 id="home-tab"
                 data-bs-toggle="tab"
-                data-bs-target="#home"
+                data-bs-target={`#input-${commentIdToReply}`}
                 type="button"
                 role="tab"
                 aria-controls="home"
@@ -284,7 +287,7 @@ export const ReplyForm: FC<Props> = ({
                 className="nav-link"
                 id="profile-tab"
                 data-bs-toggle="tab"
-                data-bs-target="#profile"
+                data-bs-target={`#preview-${commentIdToReply}`}
                 type="button"
                 role="tab"
                 aria-controls="profile"
@@ -299,7 +302,7 @@ export const ReplyForm: FC<Props> = ({
             </li>
           </ul>
           <div className="tab-content p-3" id="myTabContent">
-            <div className="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
+            <div className="tab-pane fade show active" id={`input-${commentIdToReply}`} role="tabpanel" aria-labelledby="home-tab">
               <div className="container">
                 <div className="row px-0 py-2">
                   <div className="col-sm-1 px-0">
@@ -366,7 +369,7 @@ export const ReplyForm: FC<Props> = ({
                 )}
               </div>
             </div>
-            <div className="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">
+            <div className="tab-pane fade" id={`preview-${commentIdToReply}`} role="tabpanel" aria-labelledby="profile-tab">
               {/* eslint-disable-next-line react/no-danger */}
               <div dangerouslySetInnerHTML={{ __html: sanitizedText }} />
             </div>
@@ -387,15 +390,13 @@ export const ReplyForm: FC<Props> = ({
           </div>
         </div>
         <div className="d-grid gap-2 d-md-flex justify-content-md-end">
-          {commentIdToReply !== null && (
-            <button
-              className="btn btn-outline-danger"
-              type="button"
-              onClick={() => setCommentIdToReply(null)}
-            >
-              Cancel
-            </button>
-          )}
+          <button
+            className="btn btn-outline-danger"
+            type="button"
+            onClick={() => setCommentIdToReply(0)}
+          >
+            Cancel
+          </button>
 
           <button
             type="submit"
@@ -405,7 +406,7 @@ export const ReplyForm: FC<Props> = ({
           </button>
           <ReCAPTCHA
             size="invisible"
-            sitekey="6LdsxGEkAAAAAHdMT4w9zm_vAX9iZzRKW2u1uFjN"
+            sitekey={process.env.REACT_APP_GC || ''}
             ref={reRef}
           />
         </div>

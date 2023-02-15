@@ -3,7 +3,7 @@ import DownloadLink from 'react-download-link';
 import FsLightbox from 'fslightbox-react';
 import { Comment } from '../../types/comment';
 import { ReplyForm } from '../ReplyForm/ReplyForm';
-import './CommentItem.scss';
+import './CommentItem.css';
 
 interface Props {
   comment: Comment;

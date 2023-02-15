@@ -1,5 +1,5 @@
 import React, { useCallback, useEffect, useState } from 'react';
-import './App.scss';
+import './App.css';
 import { Comment } from './types/comment';
 import { getComments } from './api/comments';
 import { CommentList } from './components/CommentList/CommentList';
